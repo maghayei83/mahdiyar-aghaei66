@@ -1,0 +1,43 @@
+﻿
+using System.Text.RegularExpressions;
+
+string address = @"D:\m.rtr";
+
+string line;
+
+List<string> citys = new List<string>();
+
+using (StreamReader srreader = new StreamReader(address))
+{
+    while (!srreader.EndOfStream)
+    {
+        line = srreader.ReadLine();
+        citys.Add(Regex.Replace(line, @"(تهران|,|:|-| )+", ""));
+    }
+}
+
+line = srreader.ReadLine();
+citys.Add(Regex.Replace(line, @"(اصفحان|,|:|-| )", ""));
+var nonduplicatecitys = citys.Distinct();
+
+line = srreader.ReadLine();
+citys.Add(Regex.Replace(line, @"(زنجان|,|:|-| )", ""));
+
+line = srreader.ReadLine();
+citys.Add(Regex.Replace(line, @"(تبریز|,|:|-| )", ""));
+
+line = srreader.ReadLine();
+citys.Add(Regex.Replace(line, @"(بندر عباس|,|:|-| )+", ""));
+
+line = srreader.ReadLine();
+citys.Add(Regex.Replace(line, @"(اراک|,|:|-| )+", ""));
+
+foreach (string city in nonduplicatecitys)
+{
+    using (StreamWriter strwriter = new StreamWriter(@"D:\" + city + ".csv"))
+    {
+    }
+}
+
+
+
